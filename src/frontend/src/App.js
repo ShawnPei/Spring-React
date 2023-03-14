@@ -2,7 +2,7 @@ import { useState, useEffect} from "react";
 import { getAllStudents} from "./client";
 import React from 'react';
 import {DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Table } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
     return {
@@ -29,6 +29,40 @@ function App() {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
+    const columns = [
+        {
+            title: 'Id',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'Gender',
+            dataIndex: 'gender',
+            key: 'gender',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: 'Age',
+            dataIndex: 'age',
+            key: 'age',
+        },
+        {
+            title: 'Address',
+            dataIndex: 'address',
+            key: 'address',
+        },
+
+    ];
     const fetchStudents = () =>
         getAllStudents()
             .then(res => res.json())
@@ -42,9 +76,15 @@ function App() {
         fetchStudents();
     },[]);
 
-    if (students.length<=0){
-        return "no data";
+    const renderStudents = () => {
+        if (students.length <= 0){
+            return "no data available";
+        }
+        return <Table
+            dataSource={students}
+            columns = {columns}/>;
     }
+
 
     return <Layout
         style={{
@@ -89,7 +129,7 @@ function App() {
                         background: colorBgContainer,
                     }}
                 >
-                    Bill is a cat.
+                    {renderStudents()}
                 </div>
             </Content>
             <Footer

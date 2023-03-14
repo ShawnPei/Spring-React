@@ -14,9 +14,9 @@ public class StudentController {
     public List<Student> getAllStudents(){
         List<Student> students = Arrays.asList(
                 new Student(1L,
-                        "Jamila",
-                        "jamila@google.com",
-                        Gender.FEMALE),
+                        "Mike",
+                        "mike@google.com",
+                        Gender.MALE),
                 new Student(2L,
                         "Alexa",
                         "alexa@google.com",
