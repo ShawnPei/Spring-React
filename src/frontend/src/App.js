@@ -2,7 +2,7 @@ import { useState, useEffect} from "react";
 import { getAllStudents} from "./client";
 import React from 'react';
 import {DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined} from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme, Table } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Table, Alert, Space, Spin, Empty } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
     return {
@@ -26,6 +26,8 @@ const items = [
 function App() {
     const [students, setStudents] = useState( () =>[]);
     const [collapsed, setCollapsed] = useState(false);
+    const [fetching, setFetching] = useState(true);
+    const App = () => <Empty />;
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -69,6 +71,7 @@ function App() {
             .then(data => {
                 console.log(data);
                 setStudents(data);
+                setFetching(false);
             })
 
     useEffect(() => {
@@ -77,12 +80,31 @@ function App() {
     },[]);
 
     const renderStudents = () => {
-        if (students.length <= 0){
-            return "no data available";
+        if(fetching){
+            return <Space>
+
+                <Spin tip="Loading">
+                    <div className="content" />
+                </Spin>
+
+            </Space>
         }
+
+
         return <Table
             dataSource={students}
-            columns = {columns}/>;
+            columns = {columns}
+            bordered
+            title={() => 'Students'}
+            footer={() => 'Footer'}
+            pagination={{
+                pageSize: 50,
+            }}
+            scroll={{
+                y: 240,
+            }}
+            rowKey={(student) => student.id}
+        />;
     }
 
 
@@ -137,7 +159,7 @@ function App() {
                     textAlign: 'center',
                 }}
             >
-                Ant Design ©2023 Created by Ant UED
+                By Shawn
             </Footer>
         </Layout>
     </Layout>
