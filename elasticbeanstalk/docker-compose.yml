@@ -1,7 +1,9 @@
-version: "1.27.0"
+version: "3.8"
 services:
   backend:
     image: "shawnpei/spring-react-fullstack:v1"
     ports:
       - "80:8080"
     restart: "always"
+
+
