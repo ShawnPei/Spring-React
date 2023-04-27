@@ -117,7 +117,7 @@ function App() {
                     y: 500,
                 }}
                 rowKey={(student) => student.id}
-            />;
+            />
         </>
     }
     return <Layout
@@ -177,4 +177,4 @@ function App() {
     </Layout>
 }
 
-export default App;
+export default App

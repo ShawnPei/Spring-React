@@ -1,13 +1,21 @@
 import React from 'react';
 import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
+import {addStudent} from "./client";
 const { Option } = Select;
+
 
 function StudentDrawerForm({showDrawer,setShowDrawer}){
     const onClose = () => setShowDrawer(false);
 
-    const onFinish = values => {
-        alert(JSON.stringify(values, null, 2))
-    }
+    const onFinish = student => {
+        console.log(JSON.stringify(student, null, 2))
+        addStudent(student)
+            .then(() => {
+                console.log("student added")
+            }).catch(err => {
+            console.log(err)
+            })
+    };
 
     const onFinishFailed = errorInfo => {
         alert(JSON.stringify(errorInfo, null, 2))

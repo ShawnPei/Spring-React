@@ -14,8 +14,9 @@ public class StudentService {
     public List<Student> getAllStudents(){
         return studentRepository.findAll();
     }
-    @PostMapping
+
     public void addStudent(Student student) {
+
         studentRepository.save(student);
     }
 }
